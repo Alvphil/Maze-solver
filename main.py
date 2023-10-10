@@ -74,12 +74,22 @@ class Cell:
                 self.__win.draw_line(Line(self.__bottom_left, self.__bottom_right), "black")
             if self.has_left_wall:
                 self.__win.draw_line(Line(self.__top_left, self.__bottom_left), "black")
+    
+    def draw_move(self, to_cell, undo=False):
+        p1 = Point((self.__top_left.x + self.__bottom_right.x) / 2,
+                   (self.__top_left.y + self.__bottom_right.y) / 2 )
+        p2 = Point((to_cell.__top_left.x + to_cell.__bottom_right.x) / 2,
+                   (to_cell.__top_left.y + to_cell.__bottom_right.y) / 2 )
+        self.__win.draw_line(Line(p1, p2), "red")
+
+
 def main():
     win = Window(800, 600)
-    line = Line(Point(20,20),Point(500,500))
     cell_1 = Cell(win)
     cell_1.draw(Point(20, 500), Point(300, 20))
-    win.draw_line(line, "red")
+    cell_2 = Cell(win)
+    cell_2.draw(Point(60,600), Point(100,450))
+    cell_1.draw_move(cell_2)
     win.wait_for_close()
 
     
