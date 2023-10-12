@@ -19,7 +19,7 @@ class Maze:
         for i in range(self.num_rows):
             self._cells.append([])#= []
             for j in range(self.num_columns):
-                self._cells[i].append(Cell(self.win))      # [j] #= Cell(self.win)
+                self._cells[i].append(self._break_entrance_and_exit(i,j)) #Cell(self.win))      # [j] #= Cell(self.win)
                 self._draw_cell(i, j)
 
     def _draw_cell(self, i, j):
@@ -33,3 +33,11 @@ class Maze:
             return
         self.win.redraw()
         sleep(0.05)
+
+    def _break_entrance_and_exit(self,i,j):
+        if i == 0 and j == 0:
+            return Cell(self.win, False)
+        elif i == self.num_rows-1 and j == self.num_columns-1:
+            return Cell(self.win,True ,False)
+        else:
+            return Cell(self.win)
