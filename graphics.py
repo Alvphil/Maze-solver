@@ -25,6 +25,8 @@ class Window:
         self.__running = False
 
     def draw_line(self,line, color):
+        if self.__window is None:
+            return
         line.draw(self.__window, color)
 
 class Point:

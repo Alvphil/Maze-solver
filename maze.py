@@ -3,7 +3,7 @@ from graphics import Point
 from time import sleep
 
 class Maze:
-    def __init__(self, x1, y1, num_rows, nom_columns, cell_size_x, cell_size_y, win):
+    def __init__(self, x1, y1, num_rows, nom_columns, cell_size_x, cell_size_y, win=None):
         self.x1 = x1
         self.y1 = y1
         self.num_rows = num_rows
