@@ -13,6 +13,7 @@ class Cell:
         self.has_right_wall = has_right_wall
         self.has_top_wall = has_top_wall
         self.has_bottom_wall = has_bottom_wall
+        self.visited = False
         self.__top_left = 0   #top_left.x
         self.__top_right = 0   #bottom_right.x
         self.__bottom_left = 0   #top_left.y
