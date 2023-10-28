@@ -20,6 +20,7 @@ class Maze:
             #self.seed = seed
         self._create_cells()
         self._break_walls_r(0, 0)
+        self._reset_cells_visited()
 
     def _create_cells(self):
         offsett = self.x1
@@ -58,9 +59,53 @@ class Maze:
         self._cells[i][j].visited = True
         while True:
             next_index_list = []
-            possible_direction_indexes = 0
+
+            # left
+            if j > 0 and not self._cells[i][j - 1].visited:
+                next_index_list.append((i, j - 1))
+            #right
+            if j < self.num_columns -1 and not self._cells[i][j + 1].visited:
+                next_index_list.append((i, j + 1))
+            #up
+            if i > 0 and not self._cells[i - 1][j].visited:
+                next_index_list.append((i - 1, j))
+            #down
+            if i < self.num_rows - 1 and not self._cells[i + 1][j].visited:
+                next_index_list.append((i + 1, j))
+
+            # if there is nowhere to go from here
+            # just break out
+            if len(next_index_list) == 0:
+                self._draw_cell(i, j)
+                return
             
-            return
+            # randomly choose the next direction to go
+            direction_index = random.randrange(len(next_index_list))
+            next_index = next_index_list[direction_index]
+
+            # knock out walls between this cell and the next cell(s)
+            # right
+            if next_index[1] == j + 1:
+                self._cells[i][j].has_right_wall = False
+                self._cells[i][j + 1].has_left_wall = False
+            # left
+            if next_index[1] == j - 1:
+                self._cells[i][j].has_left_wall = False
+                self._cells[i][j - 1].has_right_wall = False
+            # down
+            #print (f"The i value: {i}")
+            if next_index[0] == i + 1:
+                self._cells[i][j].has_bottom_wall = False
+                self._cells[i + 1][j].has_top_wall = False
+            # up
+            if next_index[0] == i - 1:
+                self._cells[i][j].has_top_wall = False
+                self._cells[i - 1][j].has_bottom_wall = False
+
+            # recursively visit the next cell
+            self._break_walls_r(next_index[0], next_index[1])
+
+
 
     def solve(self):
         i = 0
