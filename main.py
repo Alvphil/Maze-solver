@@ -20,6 +20,7 @@ def main():
     #cell_2.draw(Point(60,600), Point(100,450))
     #cell_1.draw_move(cell_2)
     maze_1 = Maze(margin,margin,num_rows,num_cols,cell_size_x,cell_size_y,win)
+    maze_1.solve()
     win.wait_for_close()
 
     
